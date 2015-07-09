@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>错误-资源或页面不存在</title>
+<script language='javascript' type='text/javascript'>
+	var secs = 5;
+	var URL;
+	function Load(url) {
+		URL = url;
+		for (var i = secs; i >= 0; i--) {
+			window.setTimeout('doUpdate(' + i + ')', (secs - i) * 1000);
+		}
+	}
+	function doUpdate(num) {
+		document.getElementById('ShowDiv').innerHTML = '倒计时：' + num;
+		if (num == 0) {
+			window.location = "http://trace.casetekcorp.com";
+		}
+	}
+</script>
+</head>
+<body onSelectStart="return false" oncontextmenu="return false">
+<center>
+	<div style="font-size:300px">404</div>
+	<div>您访问的资源不存在或已被删除。</div>
+	<div style="cursor: hand;" onclick="javascript:history.go(-1)">点这里返回主页</div>
+</center>
+</body>
+</html>

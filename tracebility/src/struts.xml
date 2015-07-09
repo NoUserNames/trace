@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"struts-2.3.dtd">
+<struts>
+	<include file="struts-default.xml"></include>
+	<!-- 此包下所有操作均通过拦截器过滤检查 -->
+	<package namespace="/" extends="struts-default" name="query">
+ 		<interceptors>
+            <interceptor name="authority" class="rt.intercepter.SessionInterceptor"></interceptor>
+
+            <interceptor-stack name="myStack">
+           		<interceptor-ref name="defaultStack" />
+                <interceptor-ref name="authority" />
+            </interceptor-stack>            
+        </interceptors>
+ 		<default-interceptor-ref name="myStack" />
+		 		 
+ 		<!-- 设备查询 -->
+		<action name="lastScanTime" class="rt.action.DeviceAction" method="deviceLastScanTime">
+			<result name="success" type="dispatcher">lastScanTime.jsp</result>
+		</action>
+		
+		<!-- 设备最后扫描时间转向 -->
+		<action name="lastScanTime" class="rt.action.DeviceAction" method="lastScanTime">
+			<result name="success" type="redirect">lastScanTime.jsp</result>
+		</action>
+		
+		<!-- 查询设备扫描率 -->
+		<action name="DeviceAvailability" class="rt.action.DeviceAction" method="DeviceAvailability">
+			<result name="success" type="dispatcher">DeviceAvailability.jsp</result>
+		</action>
+		
+		<!-- 查询设备扫描率转向 -->
+		<action name="availability" class="rt.action.DeviceAction" method="availability">
+			<result name="success" type="redirect">DeviceAvailability.jsp</result>
+		</action>
+		
+		<!-- 查询站点 -->
+		<action name="getDevTerminalName" class="rt.action.DeviceAction" method="getTerminalName"/>
+		
+		<!-- 查询过站记录 -->
+		<action name="queryQuery" class="rt.action.ProductAction" method="queryQuery">
+			<result name="success" type="dispatcher">/queryTravel.jsp</result>
+		</action>
+		
+		<!-- 过站记录转向 -->
+		<action name="queryQueryRedirect" class="rt.action.ProductAction" method="queryQueryRedirect">
+			<result name="success" type="redirect">/queryTravel.jsp</result>
+		</action>
+		
+		<!-- 按箱号查询重定向 -->
+		<action name="initQryCarton" class="rt.action.QueryCartonAction" method="initQryCarton">
+			<result name="success" type="redirect">queryCarton.jsp</result>
+		</action>
+		<!-- 按箱号查询 -->
+		<action name="queryByCarton" class="rt.action.QueryCartonAction" method="queryByCarton">
+			<result name="success" type="dispatcher">queryCarton.jsp</result>
+		</action>
+		<!-- 导出excel -->
+		<action name="expCarton" class="rt.action.QueryCartonAction" method="exprot"></action>
+		
+		<!-- 查询所有用户信息 -->
+		<action name="getAllUsers" class="rt.action.UserAction" method="getAllUsers">
+			<result name="success" type="dispatcher">userList.jsp</result>
+		</action>
+		
+		<!-- 管理所有菜单 -->
+		<action name="loadAllNodes" class="rt.action.UserAction" method="loadAllNodes">
+			<result name="success" type="dispatcher">loadAllNodes.jsp</result>
+		</action>
+		
+		<!-- 编辑所有菜单 -->
+		<action name="updateNode" class="rt.action.UserAction" method="updateNode">
+			<result name="success" type="dispatcher">loadAllNodes.jsp</result>
+		</action>
+		<!-- 回传新增菜单编号 -->
+		<action name="getNodeId" class="rt.action.UserAction" method="getNodeId" />
+		<!-- 新增菜单 -->
+		<action name="addNode" class="rt.action.UserAction" method="addNode" />
+		<!-- 删除菜单 -->
+		<action name="deletNode" class="rt.action.UserAction" method="deletNode" />
+			
+		<!-- 管理指定用户的菜单权限 -->
+		<action name="loadNodesByUser" class="rt.action.UserAction" method="loadNodesByUser">
+			<result name="success" type="dispatcher">assignAuthority.jsp</result>
+		</action>
+		<!-- 授权操作 -->
+		<action name="assignAuthority" class="rt.action.UserAction" method="assignAuthority" />
+		<!-- 验证工号是否重复 -->
+		<action name="checkUidExist" class="rt.action.UserAction" method="checkUidExist" />
+		
+		<!-- 修改密码页面重定向 -->
+		<action name="cpredirect" class="rt.action.UserAction" method="cpredirect" >
+			<result name="success" >cp.jsp</result>
+		</action>
+		<!-- 修改密码前验证旧密码 -->
+		<action name="checkOldPwd" class="rt.action.UserAction" method="checkOldPwd" />
+		<!-- 修改密码 -->
+		<action name="changePassword" class="rt.action.UserAction" method="changePassword" />
+		<!-- 重置密码 -->
+		<action name="resetPassword" class="rt.action.UserAction" method="resetPassword" />
+		<!-- 启用/禁用工号 -->
+		<action name="userStatus" class="rt.action.UserAction" method="userStatus" />
+		<!-- 删除工号 -->
+		<action name="delUser" class="rt.action.UserAction" method="delUser" />
+		<!-- 新增工号 -->
+		<action name="addUser" class="rt.action.UserAction" method="addUser" />
+			
+		<!-- 不良信息相关 -->		
+		<action name=""></action><action name="initQryDefect" class="rt.action.QueryDefectsByProcessAction" method="initQryDefect"><!-- 重定向 -->
+			<result name="success" type="dispatcher">queryDefectByProcess.jsp</result>
+		</action>
+		<action name="queryPart" class="rt.action.QueryDefectsByProcessAction" method="queryPart" /><!-- 机种 -->
+		<action name="queryProcessByRoute" class="rt.action.QueryDefectsByProcessAction" method="queryProcessByRoute" /><!-- 途程 -->
+		<action name="queryTerminalByProcess" class="rt.action.QueryDefectsByProcessAction" method="queryTerminalByProcess" /><!-- 站点 -->
+		<action name="queryDefectsMaps" class="rt.action.QueryDefectsByProcessAction" method="queryDefectsMaps" ><!-- 最终显示不良信息 -->
+			<result name="success" type="dispatcher">queryDefectByProcess.jsp</result>
+		</action>
+		<action name="exprotDefects" class="rt.action.QueryDefectsByProcessAction" method="exprotDefects" /><!-- 下载不良信息 -->
+		<!-- 不良信息相关 -->
+		
+		<!-- 按序号查不良 -start  -->
+		<action name="queryDefectBySN" class="rt.action.QueryDefectsBySNAction" method="queryDefectBySN" >
+			<result name="success" type="dispatcher">queryDefectBySN.jsp</result>
+		</action>
+		<action name="queryDefectBySNRedirect" class="rt.action.QueryDefectsBySNAction" method="queryDefectBySNRedirect" >
+			<result name="success" type="redirect">queryDefectBySN.jsp</result>
+		</action>
+		<action name="exprotDefectsBySN" class="rt.action.QueryDefectsBySNAction" method="exprotDefectsBySN" /><!-- 导出excel不良信息 -->
+		<!-- 按序号查不良 -end -->
+		
+		<!-- WIP查询 -->
+		<!-- 初始化 -->
+		<action name="initQueryWIP" class="rt.action.QueryWIPAction" method="initQueryWIP" >
+			<result name="success" type="dispatcher">queryWIP.jsp</result>
+		</action>
+		<action name="queryWIP" class="rt.action.QueryWIPAction" method="queryWIP" >
+			<result name="success" type="dispatcher">queryWIP.jsp</result>
+		</action>
+		<action name="queryWIPDetail" class="rt.action.QueryWIPAction" method="queryWIPDetail" >
+			<result name="success" type="dispatcher">queryWIPDetail.jsp</result>
+		</action>
+		<action name="exp" class="rt.action.QueryWIPAction" method="exp" />
+		<!-- WIP查询 -->
+		
+		<!-- 漏扫查询 -开始 -->
+		<action name="initMissScanQry" class="rt.action.QueryMissScanAction" method="initMissScanQry">
+			<result name="success" type="dispatcher">queryMiss.jsp</result>
+		</action>
+		<action name="missScan" class="rt.action.QueryMissScanAction" method="missScan">
+			<result name="success" type="dispatcher">queryMiss.jsp</result>
+		</action>
+		<action name="missScanExp" class="rt.action.QueryMissScanAction" method="missScanExp"></action>
+		<!-- 漏扫查询 -结束 -->
+		
+		<!-- 投入产出查询 -->
+		<action name="initQryProcessOutput" class="rt.action.QueryProcessOutputAction" method="initQryProcessOutput">
+			<result name="success" type="dispatcher">queryProcessOutput.jsp</result>
+		</action>
+		<action name="qryProcessOutput" class="rt.action.QueryProcessOutputAction" method="qryProcessOutput">
+			<result name="success" type="dispatcher">queryProcessOutput.jsp</result>
+		</action>
+		<action name="expProcessOutput" class="rt.action.QueryProcessOutputAction" method="expProcessOutput" />
+		<action name="qryProcessOutputDetail" class="rt.action.QueryProcessOutputAction" method="qryProcessOutputDetail">
+			<result name="success" type="dispatcher">queryProcessOutputDetail.jsp</result>
+		</action>
+		<action name="expProcessOutputDetail" class="rt.action.QueryProcessOutputAction" method="expDetail" />
+		
+		<!-- 机台上传数据查询 -->
+		<!-- APS机台 -->
+		<action name="initQryAPS" class="rt.action.QueryAPSAction" method="initQryAPS">
+			<result name="success" type="redirect">machine_upload/aps.jsp</result>
+		</action>
+		<action name="qryAPS" class="rt.action.QueryAPSAction" method="qryAPS">
+			<result name="success" type="dispatcher">machine_upload/aps.jsp</result>
+		</action>
+		<action name="apsExp" class="rt.action.QueryAPSAction" method="apsExp" />
+		
+		<!-- 55°角/磁铁信息 -->
+		<action name="initQryMagnetic" class="rt.action.QueryMagneticAction" method="initQryMagnetic">
+			<result name="success" type="redirect">machine_upload/qryMagnetic.jsp</result>
+		</action>
+		<action name="qryMagnetic" class="rt.action.QueryMagneticAction" method="qryMagnetic">
+			<result name="success" type="dispatcher">machine_upload/qryMagnetic.jsp</result>
+		</action>
+		<action name="magneticExp" class="rt.action.QueryMagneticAction" method="magneticExp" />
+		<!-- 机台上传数据查询 -->
+		
+		<!-- 镭雕品质查询 -->
+		<action name="initQryLaserQuality" class="rt.action.QueryLaserQualityAction" method="initQryLaserQuality">
+			<result name="success" type="dispatcher">queryLaserQuality.jsp</result>
+		</action>
+		<action name="qryLaserQuality" class="rt.action.QueryLaserQualityAction" method="qryLaserQuality">
+			<result name="success" type="dispatcher">queryLaserQuality.jsp</result>
+		</action>
+		<action name="laserQtyExp" class="rt.action.QueryLaserQualityAction" method="laserQtyExp" />
+		<!-- 镭雕品质查询 -->
+		
+		<!-- 出货信息查询 -->
+		<action name="initQryShipping" class="rt.action.QueryShippingAction" method="initQryShipping">
+			<result name="success" type="redirect">queryShipping.jsp</result>
+		</action>
+		<action name="qryShipping" class="rt.action.QueryShippingAction" method="qryShipping">
+			<result name="success" type="dispatcher">queryShipping.jsp</result>
+		</action>
+		<action name="shippingExp" class="rt.action.QueryShippingAction" method="shippingExp"/>
+		<!-- 出货信息查询 -->
+		
+		<!-- 自定义维护区 -->
+		<!-- WIP维护 -->
+		<action name="initMaintainWIP" class="rt.action.MaintainWIPAction" method="initMaintainWIP">
+			<result name="success" type="redirect">customize/maintainWIP.jsp</result>
+		</action><!-- security/maintainWIP.jsp -->
+		<action name="maintainWIP" class="rt.action.MaintainWIPAction" method="maintainWIP" />
+		<action name="qryStatus" class="rt.action.MaintainWIPAction" method="qryStatus">
+			<result name="success" type="redirect">/customize/qrySNStatus.jsp</result>
+		</action>
+		<action name="qryStatus" class="rt.action.MaintainWIPAction" method="qryStatus">
+			<result name="success" type="dispatcher">/customize/qrySNStatus.jsp</result>
+		</action>
+		<!-- WIP维护 -->
+		
+		<!-- 特殊还回 -->
+		<action name="initClearSN" class="rt.action.SpecialReturnAction" method="initClearSN">
+			<result name="success" type="redirect">customize/clearSN.jsp</result>
+		</action>
+		<action name="qrySampleBySN" class="rt.action.SpecialReturnAction" method="qrySampleBySN">
+			<result name="success" type="dispatcher">/customize/clearSN.jsp</result>
+		</action>
+		<action name="clearSN" class="rt.action.SpecialReturnAction" method="clearSN">
+			<result name="success" type="dispatcher">/customize/clearSN.jsp</result>
+		</action>
+		<action name="initClearWorder" class="rt.action.SpecialReturnAction" method="initClearWorder">
+			<result name="success" type="redirect">customize/clearWorder.jsp</result>
+		</action>
+		<action name="qrySampleWorder" class="rt.action.SpecialReturnAction" method="qrySampleWorder">
+			<result name="success" type="dispatcher">/customize/clearWorder.jsp</result>
+		</action>
+		<action name="clearWorder" class="rt.action.SpecialReturnAction" method="clearWorder">
+			<result name="success" type="dispatcher">/customize/clearWorder.jsp</result>
+		</action>
+		<!-- 特殊还回 -->
+		
+		<!-- PDM个人工作进度 -->
+		<action name="initPersonalProgress" class="rt.action.PersonalScheduleAction" method="initPersonalProgress">
+			<result name="success" type="dispatcher">personalProgress.jsp</result>
+		</action>
+		<!-- 程式开发进度跟踪 -->
+		<action name="initProgress" class="rt.action.ProgressScheduleAction" method="initProgress">
+			<result name="success" type="dispatcher">progressSchedule.jsp</result>
+		</action>
+		
+		<!-- CNC打点信息查询 -->
+		<action name="initDotQry" class="rt.action.DotQueryAction" method="initDotQry">
+			<result name="success" type="redirect">qryDot.jsp</result>
+		</action>
+		<action name="dotQry" class="rt.action.DotQueryAction" method="dotQry">
+			<result name="success" type="dispatcher">qryDot.jsp</result>
+		</action>
+		
+		<!-- 量测数据查询 -->
+		<action name="initMeasureAction" class="rt.action.QueryMeasureAction" method="initMeasureAction">
+			<result name="success" type="redirect">machine_upload/qryMeasure.jsp</result>
+		</action>
+		<action name="qryMeasure" class="rt.action.QueryMeasureAction" method="qryMeasure">
+			<result name="success" type="dispatcher">machine_upload/qryMeasure.jsp</result>
+		</action>
+		<action name="downloadMeasure" class="rt.action.QueryMeasureAction" method="downloadMeasure" />
+		
+		<!-- 自定义查询表数据 -->
+		<action name="initMetaData" class="rt.action.QueryMetaDataAction" method="initMetaData">
+			<result name="success" type="dispatcher">queryMetaData.jsp</result>
+		</action>
+		<action name="qryMetaData" class="rt.action.QueryMetaDataAction" method="qryMetaData">
+			<result name="success" type="dispatcher">queryMetaData.jsp</result>
+		</action>
+		
+		<!-- 通用上传程式 -->
+		<action name="doUpload" class="rt.action.UploadAction" method="doUpload">
+			<result name="success" type="redirect">customize/upload.jsp</result>
+		</action>
+		<!-- 不良代码相关 -->
+		<action name="initDefectCode" class="rt.action.DefectCodeAction" method="initDefectCode">
+			<result name="success" type="dispatcher">qrydefectCode.jsp</result>
+		</action>
+		<action name="qryDefectCode" class="rt.action.DefectCodeAction" method="qryDefectCode">
+			<result name="success" type="dispatcher">qrydefectCode.jsp</result>
+		</action>
+		<action name="expDCode" class="rt.action.DefectCodeAction" method="expDCode"/>
+		
+		<!-- 查询仓库领料记录 -->
+		<action name="initQueryFlow" class="rt.action.QueryFlowAction" method="initQueryFlow">
+			<result name="success" type="dispatcher">qryFlow.jsp</result>
+		</action>
+		<action name="queryFlow" class="rt.action.QueryFlowAction" method="queryFlow">
+			<result name="success" type="dispatcher">qryFlow.jsp</result>
+		</action>
+		
+		<!-- 短信模块 -->
+		<!-- 通讯录群组功能 -->
+		<action name="initContactGroup" class="rt.action.sms.ContactGroupAction" method="initContactGroup">
+			<result name="success" type="redirect">sms/contactGroup.jsp</result>
+		</action>
+		<action name="contactGroupAdd" class="rt.action.sms.ContactGroupAction" method="contactGroupAdd"/>
+		<action name="delContactGroup" class="rt.action.sms.ContactGroupAction" method="delContactGroup"/>
+		<action name="contactEditQuery" class="rt.action.sms.ContactGroupAction" method="contactEditQuery">
+			<result name="success" type="dispatcher">sms/contactGroupEdit.jsp</result>
+		</action>
+		<action name="updateContactGroup" class="rt.action.sms.ContactGroupAction" method="updateContactGroup"/>
+		<!-- 通讯录管理 -->
+		<action name="initGroup" class="rt.action.sms.ContactAction" method="initGroup">
+			<result name="success" type="dispatcher">sms/contactGroup.jsp</result>
+		</action>
+		<action name="contact_edit_query" class="rt.action.sms.ContactAction" method="contact_edit_query">
+			<result name="success" type="dispatcher">sms/contact_edit.jsp</result>
+		</action>
+		<action name="contact_edit" class="rt.action.sms.ContactAction" method="contact_edit"/>
+		<action name="initContact" class="rt.action.sms.ContactAction" method="initContact">
+			<result name="success" type="dispatcher">sms/contact.jsp</result>
+		</action>
+		<action name="initAddGroup" class="rt.action.sms.ContactAction" method="initAddGroup">
+			<result name="success" type="dispatcher">sms/contact_add.jsp</result>
+		</action>
+		<action name="addContact" class="rt.action.sms.ContactAction" method="addContact"/>
+		<action name="delContact" class="rt.action.sms.ContactAction" method="delContact"/>
+		
+		<!-- 信息内容相关 -->
+		<action name="initSMS" class="rt.action.sms.SMSAction" method="initSMS">
+			<result name="success" type="dispatcher">sms/sms.jsp</result>
+		</action>
+		<action name="sms" class="rt.action.sms.SMSAction" method="sms">
+			<result name="success" type="dispatcher">sms/sms.jsp</result>
+		</action>
+		<action name="queryContactsByGroup" class="rt.action.sms.SMSAction" method="queryContactsByGroup"/>
+		<action name="initHRSms" class="rt.action.sms.SMSAction" method="initHRSms">
+			<result name="success" type="dispatcher">sms/hr.jsp</result>
+		</action>
+		<!-- 短信模块 -->
+		
+		<!-- 企划4小时报表 -->
+		<action name="initReport" class="rt.action.stageReport.PlanningStageReportAction" method="initReport">
+			<result name="success" type="dispatcher">report/stage/planning4hReprot.jsp</result>
+		</action>
+		<action name="queryReport" class="rt.action.stageReport.PlanningStageReportAction" method="queryReport">
+			
+		</action>
+		<action name="saveReport" class="rt.action.stageReport.PlanningStageReportAction" method="saveReport"></action>
+		<action name="saveAppen" class="rt.action.stageReport.PlanningStageReportAction" method="saveAppen"></action>
+		<action name="saveComment" class="rt.action.stageReport.PlanningStageReportAction" method="saveComment"></action>
+		<action name="queryComment" class="rt.action.stageReport.PlanningStageReportAction" method="queryComment"></action>
+		<action name="initStageReportSetting" class="rt.action.stageReport.PlanningStageReportSettingAction" method="initStageReportSetting">
+			<result name="success" type="dispatcher">report/stage/planning_stage_report_setting.jsp</result>
+		</action>
+		<action name="initStageReportSettingAdd" class="rt.action.stageReport.PlanningStageReportSettingAction" method="initStageReportSettingAdd">
+			<result name="success" type="dispatcher">report/stage/planning_stage_report_setting_add.jsp</result>
+		</action>
+		<action name="stageReportSettingAdd" class="rt.action.stageReport.PlanningStageReportSettingAction" method="stageReportSettingAdd"/>
+		
+		<action name="getEmpName" class="rt.action.stageReport.PlanningStageReportSettingAction" method="getEmpName"></action>
+		
+		<action name="queryPalnReportSetting" class="rt.action.stageReport.PlanningStageReportSettingAction" method="queryPalnReportSetting">
+			<result name="success" type="dispatcher">report/stage/planning_stage_report_setting_query.jsp</result>
+		</action>
+		<action name="updatePlanSetting" class="rt.action.stageReport.PlanningStageReportSettingAction" method="updatePlanSetting"></action>
+		<action name="assignReprotSettingEmp" class="rt.action.stageReport.PlanningStageReportSettingAction" method="assignReprotSettingEmp"></action>
+		<action name="queryReportSettingEmp" class="rt.action.stageReport.PlanningStageReportSettingAction" method="queryReportSettingEmp"></action>
+		<action name="deletePlanSetting" class="rt.action.stageReport.PlanningStageReportSettingAction" method="deletePlanSetting"></action>
+		
+		<action name="initQueryReport" class="rt.action.stageReport.PlanningStageReportAction" method="initQueryReport">
+			<result name="success" type="dispatcher">report/stage/query.jsp</result>
+		</action>
+		<action name="fillErpProcess" class="rt.action.stageReport.PlanningStageReportAction" method="fillErpProcess"/>
+		<action name="queryTotalReport" class="rt.action.stageReport.PlanningStageReportAction" method="queryTotalReport">
+			<result name="success" type="dispatcher">report/stage/query.jsp</result>
+		</action>
+		<!-- 企划4小时报表 -->
+
+		<action name="initCarton" class="rt.action.CheckCartonAction" method="initCarton">
+			<result name="success" type="redirect">chkCarton.jsp</result>
+		</action>
+		<action name="chkCarton" class="rt.action.CheckCartonAction" method="chkCarton">
+			<result name="success" type="dispatcher">chkCarton.jsp</result>
+		</action>
+	</package>
+	
+	<!--  -->
+	<package namespace="/" extends="struts-default" name="doUser">
+		<interceptors>
+		 <interceptor-stack name="myStack">
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>            
+        </interceptors>
+ 		<default-interceptor-ref name="myStack" />
+		<global-results>
+			<result name="error" type="redirect">errorPage/error.jsp</result>
+		<!-- 全局设置 -->
+		</global-results>
+		
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception" result="error" />
+		</global-exception-mappings>
+		
+		<!-- 登陆以及权限 -->
+		<action name="doLogin" class="rt.action.UserAction" method="doLogin">
+			<result name="success" type="dispatcher">index.jsp</result>
+			<result name="input" type="dispatcher">login.jsp</result>
+		</action>
+		<action name="doLoginDialog" class="rt.action.UserAction" method="doLoginDialog"/>
+		<action name="doSSO" class="rt.action.UserAction" method="doSSO">
+			<result name="success" type="dispatcher">index.jsp</result>
+			<result name="input" type="dispatcher">login.jsp</result>
+		</action>
+		<action name="doLoginOut" class="rt.action.UserAction" method="doLoginOut" />
+	</package>
+	
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.ui.templateDir" value="template" />
+	<constant name="struts.ui.templateSuffix" value="ftl" />
+	<constant name="struts.action.excludePattern" value="/dwr/*"></constant>
+</struts>

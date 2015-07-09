@@ -1,0 +1,107 @@
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, form, img, dl, dt, dd, table, th, td, blockquote, fieldset, div, strong, label, em {
+	margin:0;
+	padding:0;
+	border:0;
+}
+ul, ol, li {
+	list-style:none;
+}
+input, button {
+	margin:0;
+	font-size:12px;
+	vertical-align:middle;
+}
+body {
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif;
+	text-align:left;
+	margin:0 auto;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+a {
+	color:#fff;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:none;
+}
+.floatad-winpop {
+	PADDING-RIGHT: 1px;
+	DISPLAY: none;
+	PADDING-LEFT: 1px;
+	RIGHT: 0px;
+	PADDING-BOTTOM: 1px;
+	MARGIN: 0px;
+	OVERFLOW: hidden;
+	WIDTH: 256px;
+	BOTTOM: 0px;
+	PADDING-TOP: 1px;
+	POSITION: absolute;
+	HEIGHT: 0px;
+}
+.floatad-floatBorder {
+	BORDER-RIGHT: #636363 3px solid;
+	BORDER-TOP: #636363 3px solid;
+	MARGIN: 0px auto;
+	BORDER-LEFT: #636363 3px solid;
+	WIDTH: 250px;
+	BORDER-BOTTOM: #636363 3px solid;
+	background:#c0c0c0;
+	HEIGHT: 180px
+}
+.part02-ad {
+	width:235px;
+	float:left;
+	display:inline;
+	margin-left:8px;
+	padding-top:15px;
+	font-size: 14px;
+	padding: 5 5 10 0;
+}
+.jsnew {
+	width:100%;
+	float:left;
+	padding-bottom:4px
+}
+
+jsnew li a {
+	display:block;
+	width:178px;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	overflow: hidden;
+}
+.jspic {
+	width:100%;
+	float:left;
+	padding-top:15px;
+}
+.jspic li {
+	float:left;
+	width:92px;
+	display:inline;
+	margin-right:8px;
+	margin-left:8px;
+}
+.jspic .a1 {
+	padding:1px;
+	border:1px solid #fff;
+	display:block;
+	width:88px;
+	height:74px;
+}
+.jspic .a1 img {
+	width:100%;
+	height:100%;
+	margin-left:0;
+}
+.jspic .a2 {
+	display:block;
+	text-align:center;
+	line-height:19px;
+	width:100%;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="pageContent">
+	<form method="post" action="doLoginDialog"  class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>类&nbsp;&nbsp;&nbsp;别：</label>
+				<select id="type" name="loginType" onchange="chkLabel(this.value)">
+					<option value="1">工号</option>
+					<option value="2">域帐号</option>
+				</select>
+			</div>
+			<div class="unit">
+				<label>用户名：</label>
+				<input type="text" name="uid" size="30" class="required"/>
+			</div>
+			<div class="unit">
+				<label>密码：</label>
+				<input type="password" name="uPwd" size="30" class="required"/>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>
+</body>
+</html>

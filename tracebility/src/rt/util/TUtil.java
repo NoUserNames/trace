@@ -246,6 +246,34 @@ public class TUtil {
 		}
 	}
 
+	//去除两个List中重复值
+	public List<Object> duplicate2List(){
+		List<Integer> l1 = new ArrayList<Integer>();
+		l1.add(1);
+		l1.add(2);
+		l1.add(3);
+		l1.add(4);
+		l1.add(5);
+		l1.add(6);
+		List<Integer> l2 = new ArrayList<Integer>();
+		l2.add(4);
+		l2.add(5);
+		l2.add(6);
+		l2.add(7);
+		l2.add(8);
+		l2.add(9);
+
+		List<Integer> temp = new ArrayList<Integer>(l1);// 用来保存两者共同有的数据
+		temp.retainAll(l2);
+		l1.removeAll(temp);// l1中去掉两者共同有的数据
+		l2.removeAll(temp);// l2中去掉两者共同有的数据
+
+		List<Integer> l3 = new ArrayList<Integer>();
+		l3.addAll(l1);
+		l3.addAll(l2);
+		System.out.println(l3);
+	}
+
 	public List<String> distinctList(List<String> list) {
 		HashSet<String> h = new HashSet<String>(list);
 		list.clear();
